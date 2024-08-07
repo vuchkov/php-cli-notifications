@@ -7,13 +7,20 @@
 - PHP CLI execution (sending) of email notification/s
 
 ### Instructions
-1. Import DB table `notifications` from `db.sql`
-2. Add new notification:
-   ```php notif.php push <email> <subject> <body>```
-3. Execute <step> notifications at ones:
-   ```php notif.php exec <how_many_notifications>```
-   Replace `<how_many_notifications>` (default: 1) with what number you want.
-4. Update `$email_from` value in *Notification.php*
+1. Update `$email_from` value in `Notification.php`
+2. Import `db.sql` (DB table `notifications`)
+
+#### Push new notification in DB:
+```
+php notif.php push <email> <subject> <body>
+```
+Replace `<email>`, `<subject>` and `body` above with real data.
+
+#### Execute <step> notifications at ones:
+```
+php notif.php exec <how_many>
+```
+Replace `<how_many>` (default: 1) with what number you want.
 
 ### MySQL database
 - Table `notifications` is in `db.sql` 
