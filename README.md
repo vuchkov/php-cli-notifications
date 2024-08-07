@@ -14,7 +14,7 @@
 ```
 php notif.php push <email> <subject> <body>
 ```
-Replace `<email>`, `<subject>` and `body` above with real data.
+Replace `<email>`, `<subject>` and `<body>` above with real data.
 
 #### Execute <step> notifications at ones:
 ```
