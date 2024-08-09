@@ -72,4 +72,4 @@ php notif.php exec 100 &>> notif.log
 
 ### Extras
 - Docksal - Docker based local development environment 
-incl. Nginx / Apache, PHP 8.x,  MySQL 8.x / MariaDB 11.x docker images
+incl. Nginx / Apache, PHP 7.x/8.x,  MySQL 8 / MariaDB 11.x docker images
