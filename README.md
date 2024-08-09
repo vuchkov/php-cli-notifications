@@ -2,14 +2,6 @@
 
 ## Create and send PHP/CLI (Cron ready) and MySQL email notifications
 
-### Integrations
-- Integrated `Mailgun` Web API
-- Integrated PHP `mail()` (optionally)
-
-### User Scenarios
-- PHP CLI new notification creation (save in MySQL) 
-- PHP CLI execution (sending) of the email notification/s
-
 ### Installation
 1. Import `db.sql` (DB table `notifications`)
 2. Update `$email_from` value in class `Notification.php`
@@ -17,6 +9,14 @@
 `composer install`
 4. (Mailgun only) Set up your mailgun: API key, domain and endpoint <br>
 in `Notification.php`
+
+### Integrations
+- Integrated `Mailgun` Web API
+- Integrated PHP `mail()` (optionally)
+
+### User Scenarios
+- PHP CLI new notification creation (save in MySQL) 
+- PHP CLI execution (sending) of the email notification/s
 
 <br>
 
@@ -45,6 +45,8 @@ or .log both output & error:
 ```
 php notif.php exec 100 &>> notif.log
 ```
+
+<br>
 
 ### MySQL database
 - Table `notifications` is in `db.sql` 
