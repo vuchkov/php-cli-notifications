@@ -1,6 +1,8 @@
 <?php
 
 require_once 'vendor/autoload.php';
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
 use Mailgun\Mailgun;
 
 Class Notification {
@@ -8,16 +10,13 @@ Class Notification {
     private string $subject;
     private string $body;
     private string $email;
-    private string $email_from = 'postmaster@sandbox250009e5b0474789aef35e0389edc984.mailgun.org';
+    private string $email_from = 'postmaster@sandboxXXXXX.mailgun.org';
 
     // Mailgun settings
-    private string $mailgun_api_key = 'a26b1841-4edd53a5';
-    private string $mailgun_public_api_key = 'pubkey-6b90e40f9f0e30c8afd14164d5fb558f';
-    private string $mailgun_domain = 'sandbox250009e5b0474789aef35e0389edc984.mailgun.org';
+    private string $mailgun_public_api_key = 'PUBLIC_API_KEY';
+    private string $mailgun_domain = 'sandboxXXXXX.mailgun.org';
     // For outside EU remove .eu below:
     private string $mailgun_endpoint = 'https://api.eu.mailgun.net';
-    private string $mailgun_smtp_user = '022d582ddea5c4f0bce7beb9edf29cba-a26b1841-a8e0afcb';
-    private string $mailgun_smtp_password = 'postmaster@sandbox250009e5b0474789aef35e0389edc984.mailgun.org';
 
     // DB settings
     private string $dbtable = 'notifications';
@@ -65,11 +64,14 @@ Class Notification {
         */
         // Mailgun integration.
         try {
-            $mg = Mailgun::create($this->mailgun_public_api_key, $this->mailgun_endpoint, $this->mailgun_api_key);
+            $configurator = new HttpClientConfigurator();
+            $configurator->setEndpoint($this->mailgun_endpoint);
+            $configurator->setApiKey($this->mailgun_public_api_key);
+            $configurator->setDebug(true);
+            $mg = new Mailgun($configurator, new NoopHydrator());
+
             $res = $mg->messages()->send($this->mailgun_domain, [
                 'from' => $this->email_from,
-                //'au' => $this->mailgun_smtp_user,
-                //'ap' => $this->mailgun_smtp_password,
                 'to' => $this->email,
                 'subject' => $this->subject,
                 'text' => $this->body
@@ -77,9 +79,7 @@ Class Notification {
             return $res === 200;
         } catch (Exception $e) {
             die('Mailgun Error: ' . $e->getMessage() . PHP_EOL);
-            //return FALSE;
         }
-        //return TRUE;
     }
 
     private function mail_headers(): string {
